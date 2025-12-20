@@ -27,8 +27,10 @@ def predict():
     smoke = int(request.form['smoke'])
     alco = int(request.form['alco'])
     active = int(request.form['active'])
+    bmi = weight / ((height / 100) ** 2)
+    pulse_pressure = ap_hi - ap_lo
 
-    features_to_scale = np.array([[height, weight, ap_hi, ap_lo, age]])
+    features_to_scale = np.array([[height, weight, ap_hi, ap_lo, age, pulse_pressure, bmi]])
 
     scaled_features = scaler.transform(features_to_scale)
 
@@ -37,8 +39,10 @@ def predict():
     s_ap_hi = scaled_features[0][2]
     s_ap_lo = scaled_features[0][3]
     s_age = scaled_features[0][4]
+    s_pp = scaled_features[0][5]
+    s_bmi = scaled_features[0][6]
 
-    final_input = np.array([[gender, s_height, s_weight, s_ap_hi, s_ap_lo, chol, gluc, smoke, alco, active, s_age]])
+    final_input = np.array([[gender, s_height, s_weight, s_ap_hi, s_ap_lo, chol, gluc, smoke, alco, active, s_age, s_pp, s_bmi]])
 
     prediction = model.predict(final_input)
     probability = model.predict_proba(final_input)[0][1]
