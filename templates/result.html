@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 400px; }
+        h1 { color: #333; margin-bottom: 10px; }
+
+        /* Dynamic Color Class */
+        .result-box {
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .btn:hover { background-color: #555; }
+        .probability { color: #777; font-size: 14px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Prediction Result</h1>
+
+    <div class="result-box" style="background-color: {{ color }};">
+        {{ prediction_text }}
+    </div>
+
+    <p class="probability">Confidence Score: {{ prob }}%</p>
+
+    <p>Based on the clinical data provided, this is the estimated risk profile.</p>
+
+    <a href="/" class="btn">Try Another Patient</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardio Prediction - ML Project</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; padding: 20px; }
+        .container { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        h2 { text-align: center; color: #333; }
+        label { margin-top: 10px; display: block; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; background-color: #4CAF50; color: white; padding: 12px; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+        .group { display: flex; gap: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>❤️ Heart Disease Predictor</h2>
+    <p style="text-align:center; color: #666;">Enter patient details below</p>
+
+    <form action="/predict" method="POST">
+        <label>Age (Years)</label>
+        <input type="number" name="age" step="1" placeholder="e.g. 50" required>
+
+        <div class="group">
+            <div style="width: 50%;">
+                <label>Gender</label>
+                <select name="gender">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+            <div style="width: 50%;">
+                <label>Active?</label>
+                <select name="active">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="group">
+            <div style="width: 50%;">
+                <label>Height (cm)</label>
+                <input type="number" name="height" placeholder="165" required>
+            </div>
+            <div style="width: 50%;">
+                <label>Weight (kg)</label>
+                <input type="number" name="weight" placeholder="70" required>
+            </div>
+        </div>
+
+        <div class="group">
+            <div style="width: 50%;">
+                <label>Systolic BP (High)</label>
+                <input type="number" name="ap_hi" placeholder="120" required>
+            </div>
+            <div style="width: 50%;">
+                <label>Diastolic BP (Low)</label>
+                <input type="number" name="ap_lo" placeholder="80" required>
+            </div>
+        </div>
+
+        <div class="group">
+            <div style="width: 50%;">
+                <label>Cholesterol</label>
+                <select name="chol">
+                    <option value="1">Normal</option>
+                    <option value="2">Above Normal</option>
+                    <option value="3">High</option>
+                </select>
+            </div>
+            <div style="width: 50%;">
+                <label>Glucose</label>
+                <select name="gluc">
+                    <option value="1">Normal</option>
+                    <option value="2">Above Normal</option>
+                    <option value="3">High</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="group">
+            <div style="width: 50%;">
+                <label>Smoke?</label>
+                <select name="smoke">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div style="width: 50%;">
+                <label>Alcohol?</label>
+                <select name="alco">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit">Predict Risk</button>
+    </form>
+</div>
+
+</body>
+</html>
