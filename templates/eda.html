@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Data Insights{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card mt-4">
+            <div class="card-header text-center">Data Insights & EDA</div>
+            <div class="card-body">
+                <p>Dataset: 70,000 records from cardio_train.csv. Features include demographics, vitals, and lifestyle. Balanced target (50% cardio disease).</p>
+                <h5>Key Insights:</h5>
+                <ul>
+                    <li><strong>Age:</strong> Mean ~53 years (range 30-65).</li>
+                    <li><strong>Gender:</strong> 65% men, 35% women.</li>
+                    <li><strong>Height/Weight:</strong> Mean height 164 cm, weight 74 kg.</li>
+                    <li><strong>Blood Pressure:</strong> Systolic mean 129 mmHg, Diastolic mean 97 mmHg (with outliers).</li>
+                    <li><strong>Cholesterol/Glucose:</strong> Mostly normal (means 1.37 and 1.23).</li>
+                    <li><strong>Lifestyle:</strong> 8.8% smokers, 5.4% alcohol consumers, 80.4% active.</li>
+                </ul>
+                <h5>Visualizations:</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="/static/eda_boxplot.png" alt="Blood Pressure Distribution" class="img-fluid rounded">
+                        <p class="text-center">Boxplot: Blood Pressure (ap_hi ~120-130, ap_lo ~80, with high outliers).</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="/static/eda_heatmap.png" alt="Correlation Heatmap" class="img-fluid rounded">
+                        <p class="text-center">Heatmap: Correlations (e.g., pulse_pressure & ap_hi: 0.84; cardio & age: 0.24).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

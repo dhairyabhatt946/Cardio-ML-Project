@@ -12,9 +12,25 @@ with open('scaler.pkl', 'rb') as f:
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 
-@app.route('/predict', methods = ['POST'])
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/eda')
+def eda():
+    return render_template('eda.html')
+
+@app.route('/performance')
+def performance():
+    return render_template('performance.html')
+
+@app.route('/predict')
+def predict_form():
+    return render_template('predict.html')
+
+@app.route('/result', methods=['POST'])
 def predict():
     age = float(request.form['age'])
     gender = int(request.form['gender'])
@@ -49,12 +65,12 @@ def predict():
 
     if prediction[0] == 1:
         result_text = 'High Risk of Cardiovascular Disease'
-        color = 'red'
+        color = 'danger'  # Bootstrap red
     else:
-        result_text = 'Low Risk (healthy)'
-        color = 'green'
+        result_text = 'Low Risk (Healthy)'
+        color = 'success'  # Bootstrap green
 
-    return render_template('result.html', prediction_text = result_text, prob = round(probability*100, 2), color=color)
+    return render_template('result.html', prediction_text=result_text, prob=round(probability * 100, 2), color=color)
 
 if __name__ == '__main__':
     app.run(debug=True)

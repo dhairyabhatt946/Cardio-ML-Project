@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Performance{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card mt-4">
+            <div class="card-header text-center">Model Performance</div>
+            <div class="card-body">
+                <p><strong>Accuracy:</strong> 73.32% (on test set of 13,729 samples).</p>
+                <h5>Classification Report:</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1-Score</th>
+                            <th>Support</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0 (Low Risk)</td>
+                            <td>0.71</td>
+                            <td>0.78</td>
+                            <td>0.75</td>
+                            <td>6863</td>
+                        </tr>
+                        <tr>
+                            <td>1 (High Risk)</td>
+                            <td>0.76</td>
+                            <td>0.68</td>
+                            <td>0.72</td>
+                            <td>6866</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accuracy</strong></td>
+                            <td colspan="4">0.73</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Macro Avg</strong></td>
+                            <td>0.74</td>
+                            <td>0.73</td>
+                            <td>0.73</td>
+                            <td>13729</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Weighted Avg</strong></td>
+                            <td>0.74</td>
+                            <td>0.73</td>
+                            <td>0.73</td>
+                            <td>13729</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Confusion Matrix:</h5>
+                <img src="../static/confusion_matrix.png" alt="Confusion Matrix" class="img-fluid rounded mx-auto d-block">
+                <p class="text-center">True Negatives: 5365 | False Positives: 1498<br>False Negatives: 2165 | True Positives: 4701</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

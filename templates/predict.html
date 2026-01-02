@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Predict{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card mt-4">
+            <div class="card-header text-center">Predict Cardiovascular Risk</div>
+            <div class="card-body">
+                <form action="/result" method="POST">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Age (Years)</label>
+                            <input type="number" class="form-control" name="age" placeholder="e.g. 50" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Gender</label>
+                            <select class="form-select" name="gender">
+                                <option value="2">Male</option>
+                                <option value="1">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Height (cm)</label>
+                            <input type="number" class="form-control" name="height" placeholder="165" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Weight (kg)</label>
+                            <input type="number" class="form-control" name="weight" placeholder="70" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Systolic BP (High)</label>
+                            <input type="number" class="form-control" name="ap_hi" placeholder="120" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Diastolic BP (Low)</label>
+                            <input type="number" class="form-control" name="ap_lo" placeholder="80" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Cholesterol</label>
+                            <select class="form-select" name="chol">
+                                <option value="1">Normal</option>
+                                <option value="2">Above Normal</option>
+                                <option value="3">High</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Glucose</label>
+                            <select class="form-select" name="gluc">
+                                <option value="1">Normal</option>
+                                <option value="2">Above Normal</option>
+                                <option value="3">High</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Smoker?</label>
+                            <select class="form-select" name="smoke">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Alcohol Intake?</label>
+                            <select class="form-select" name="alco">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Physically Active?</label>
+                            <select class="form-select" name="active">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Analyze Risk</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

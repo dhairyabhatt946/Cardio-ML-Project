@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card mt-4">
+            <div class="card-header text-center">Welcome to CardioGuard AI</div>
+            <div class="card-body">
+                <p>This is a 6th semester Machine Learning project for predicting cardiovascular disease risk using patient data. The model analyzes factors like age, blood pressure, cholesterol, and lifestyle to provide risk assessments.</p>
+                <p>Key Features:</p>
+                <ul>
+                    <li>Trained on a dataset of 70,000 records with 13 features.</li>
+                    <li>Uses XGBoost for accurate predictions.</li>
+                    <li>Interactive prediction tool.</li>
+                    <li>Detailed insights into data, model, and performance.</li>
+                </ul>
+                <div class="text-center">
+                    <a href="/predict" class="btn btn-primary">Start Prediction</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
