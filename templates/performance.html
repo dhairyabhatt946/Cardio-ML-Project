@@ -1,25 +1,111 @@
 {% extends 'base.html' %}
 {% block title %}Performance{% endblock %}
 {% block content %}
-<div class="row justify-content-center mt-4">
+<style>
+    .metric-card {
+        background: white;
+        border-radius: 18px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .metric-value {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .metric-label {
+        font-size: 0.9rem;
+        color: #718096;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .confusion-matrix-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+    }
+
+    .performance-table {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .performance-table thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .performance-table tbody tr {
+        transition: all 0.2s ease;
+    }
+
+    .performance-table tbody tr:hover {
+        background: rgba(102, 126, 234, 0.05);
+        transform: scale(1.01);
+    }
+
+    .stat-box {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .stat-box.success {
+        border-color: #4ade80;
+    }
+
+    .stat-box.danger {
+        border-color: #f87171;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+</style>
+
+<div class="row justify-content-center">
     <div class="col-md-10">
-        <div class="card shadow-lg">
+        <div class="card mb-4">
             <div class="card-header text-center">
                 <i class="fas fa-tachometer-alt me-2"></i>Model Performance Metrics
             </div>
             <div class="card-body p-4">
-                <div class="alert alert-success border-0 text-center mb-4">
+                <div class="alert alert-success text-center mb-5">
                     <h4 class="mb-2"><i class="fas fa-check-circle me-2"></i>Overall Accuracy</h4>
-                    <h2 class="mb-2 text-primary">73.32%</h2>
+                    <h1 class="mb-2" style="font-size: 4rem; font-weight: 800; color: #667eea;">73.32%</h1>
                     <p class="mb-0">Evaluated on test set of 13,729 samples</p>
                 </div>
 
-                <h5 class="mb-3 text-dark">
-                    <i class="fas fa-clipboard-list me-2"></i>Classification Report
-                </h5>
-                <div class="table-responsive mb-4">
-                    <table class="table table-hover table-bordered">
-                        <thead class="table-light">
+                <h4 class="mb-4 fw-bold">
+                    <i class="fas fa-clipboard-list me-2" style="color: #667eea;"></i>Classification Report
+                </h4>
+                <div class="table-responsive mb-5">
+                    <table class="table performance-table">
+                        <thead>
                             <tr>
                                 <th>Class</th>
                                 <th>Precision</th>
@@ -43,7 +129,7 @@
                                 <td>0.72</td>
                                 <td>6866</td>
                             </tr>
-                            <tr class="table-light">
+                            <tr style="background: #f8fafc;">
                                 <td><strong>Accuracy</strong></td>
                                 <td colspan="4" class="text-center"><strong>0.73</strong></td>
                             </tr>
@@ -65,91 +151,79 @@
                     </table>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row g-4 mb-5">
                     <div class="col-md-3">
-                        <div class="card border-0 bg-light text-center">
-                            <div class="card-body">
-                                <h6 class="text-muted small">Precision</h6>
-                                <h4 class="text-primary">0.74</h4>
-                                <p class="small text-muted mb-0">Average</p>
-                            </div>
+                        <div class="metric-card">
+                            <div class="metric-value">0.74</div>
+                            <div class="metric-label">Precision</div>
+                            <p class="small text-muted mb-0 mt-2">Average</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card border-0 bg-light text-center">
-                            <div class="card-body">
-                                <h6 class="text-muted small">Recall</h6>
-                                <h4 class="text-success">0.73</h4>
-                                <p class="small text-muted mb-0">Average</p>
-                            </div>
+                        <div class="metric-card">
+                            <div class="metric-value">0.73</div>
+                            <div class="metric-label">Recall</div>
+                            <p class="small text-muted mb-0 mt-2">Average</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card border-0 bg-light text-center">
-                            <div class="card-body">
-                                <h6 class="text-muted small">F1-Score</h6>
-                                <h4 class="text-info">0.73</h4>
-                                <p class="small text-muted mb-0">Average</p>
-                            </div>
+                        <div class="metric-card">
+                            <div class="metric-value">0.73</div>
+                            <div class="metric-label">F1-Score</div>
+                            <p class="small text-muted mb-0 mt-2">Average</p>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card border-0 bg-light text-center">
-                            <div class="card-body">
-                                <h6 class="text-muted small">Test Samples</h6>
-                                <h4 class="text-warning">13,729</h4>
-                                <p class="small text-muted mb-0">Total</p>
-                            </div>
+                        <div class="metric-card">
+                            <div class="metric-value" style="font-size: 2.5rem;">13,729</div>
+                            <div class="metric-label">Test Samples</div>
+                            <p class="small text-muted mb-0 mt-2">Total</p>
                         </div>
                     </div>
                 </div>
 
-                <h5 class="mb-3 text-dark">
-                    <i class="fas fa-th me-2"></i>Confusion Matrix
-                </h5>
-                <div class="text-center mb-4">
+                <h4 class="mb-4 fw-bold">
+                    <i class="fas fa-th me-2" style="color: #667eea;"></i>Confusion Matrix
+                </h4>
+                <div class="confusion-matrix-card text-center mb-4">
                     <img src="../static/confusion_matrix.png" alt="Confusion Matrix" class="img-fluid rounded shadow"
                         style="max-width: 600px;">
                 </div>
 
-                <div class="row text-center">
-                    <div class="col-md-6 mb-3">
-                        <div class="card border-success">
-                            <div class="card-body">
-                                <h6 class="text-success">Correct Predictions</h6>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="mb-1"><strong>True Negatives</strong></p>
-                                        <h4 class="text-success">5,365</h4>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="mb-1"><strong>True Positives</strong></p>
-                                        <h4 class="text-success">4,701</h4>
-                                    </div>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="stat-box success">
+                            <h6 class="text-success fw-bold mb-3">Correct Predictions</h6>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>True Negatives</strong></p>
+                                    <h4 class="text-success">5,365</h4>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>True Positives</strong></p>
+                                    <h4 class="text-success">4,701</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="card border-danger">
-                            <div class="card-body">
-                                <h6 class="text-danger">Incorrect Predictions</h6>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="mb-1"><strong>False Positives</strong></p>
-                                        <h4 class="text-danger">1,498</h4>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="mb-1"><strong>False Negatives</strong></p>
-                                        <h4 class="text-danger">2,165</h4>
-                                    </div>
+                    <div class="col-md-6">
+                        <div class="stat-box danger">
+                            <h6 class="text-danger fw-bold mb-3">Incorrect Predictions</h6>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>False Positives</strong></p>
+                                    <h4 class="text-danger">1,498</h4>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>False Negatives</strong></p>
+                                    <h4 class="text-danger">2,165</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="alert alert-info border-0 mt-4">
+                <div class="alert alert-info mb-0">
                     <h6><i class="fas fa-info-circle me-2"></i>Model Interpretation</h6>
                     <ul class="mb-0">
                         <li><strong>Balanced Performance:</strong> The model shows similar precision and recall for both

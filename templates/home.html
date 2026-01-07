@@ -1,77 +1,267 @@
 {% extends 'base.html' %}
 {% block title %}Home - CardioGuard AI{% endblock %}
 {% block content %}
-<div class="row justify-content-center mt-4">
-    <div class="col-lg-10">
-        <div class="card shadow-lg">
-            <div class="card-header text-center">
-                <i class="fas fa-heart-pulse me-2"></i>Welcome to CardioGuard AI
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 25px;
+        padding: 4rem 3rem;
+        color: white;
+        margin-bottom: 3rem;
+        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .feature-card {
+        border: none;
+        border-radius: 20px;
+        padding: 2rem;
+        height: 100%;
+        background: white;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+    }
+
+    .feature-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .icon-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .icon-success {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+
+    .icon-danger {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        color: white;
+    }
+
+    .stats-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem 2.5rem;
+        border-radius: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .stats-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .key-feature-item {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .key-feature-item:last-child {
+        border-bottom: none;
+    }
+
+    .key-feature-item:hover {
+        padding-left: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    .cta-button {
+        padding: 1.25rem 3rem;
+        font-size: 1.1rem;
+        border-radius: 15px;
+        font-weight: 700;
+        background: white;
+        color: #667eea;
+        border: none;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        color: #667eea;
+    }
+</style>
+
+<div class="hero-section">
+    <div class="hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="fas fa-heartbeat me-3"></i>CardioGuard AI
+                </h1>
+                <p class="lead mb-4" style="font-size: 1.25rem; opacity: 0.95;">
+                    Advanced machine learning for cardiovascular disease risk prediction. Analyze patient data with
+                    cutting-edge AI to provide accurate risk assessments and personalized health recommendations.
+                </p>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="key-feature-item">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>70,000 records</strong> training dataset
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="key-feature-item">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>XGBoost</strong> algorithm
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="key-feature-item">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>13 features</strong> analysis
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="key-feature-item">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Personalized</strong> recommendations
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/predict" class="cta-button">
+                    <i class="fas fa-stethoscope me-2"></i>Start Risk Assessment
+                </a>
             </div>
-            <div class="card-body p-4">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <p class="lead mb-4">
-                            This is a 6th semester Machine Learning project for predicting cardiovascular disease risk
-                            using patient data.
-                            The model analyzes factors like age, blood pressure, cholesterol, and lifestyle to provide
-                            risk assessments.
-                        </p>
-
-                        <h5 class="mb-3"><i class="fas fa-star text-warning me-2"></i>Key Features</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Trained on a dataset
-                                of <strong>70,000 records</strong> with 13 features</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Uses
-                                <strong>XGBoost</strong> for accurate predictions
-                            </li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Interactive prediction
-                                tool</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Detailed insights into
-                                data, model, and performance</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Personalized health
-                                recommendations</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <i class="fas fa-heartbeat display-1 mb-3" style="color: #3b82f6;"></i>
-                        <h4 class="text-primary">73.32%</h4>
-                        <p class="text-muted">Model Accuracy</p>
-                    </div>
+            <div class="col-lg-4 text-center mt-4 mt-lg-0">
+                <div class="stats-badge">
+                    <div class="stats-number">73.32%</div>
+                    <div style="font-size: 1.1rem; font-weight: 600; opacity: 0.9;">Model Accuracy</div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <div class="row mt-4">
-                    <div class="col-md-4 mb-3">
-                        <div class="card border-0 bg-light h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-database fa-2x text-primary mb-3"></i>
-                                <h6>Comprehensive Dataset</h6>
-                                <p class="small text-muted mb-0">Demographics, vitals, and lifestyle factors</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card border-0 bg-light h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-brain fa-2x text-success mb-3"></i>
-                                <h6>AI-Powered Analysis</h6>
-                                <p class="small text-muted mb-0">XGBoost ensemble learning</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="card border-0 bg-light h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-shield-alt fa-2x text-danger mb-3"></i>
-                                <h6>Risk Assessment</h6>
-                                <p class="small text-muted mb-0">Binary classification with probabilities</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon icon-primary">
+                <i class="fas fa-database"></i>
+            </div>
+            <h5 class="fw-bold mb-3">Comprehensive Dataset</h5>
+            <p class="text-muted mb-0">
+                Trained on extensive patient data including demographics, vital signs, and lifestyle factors
+                for robust predictions.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon icon-success">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h5 class="fw-bold mb-3">AI-Powered Analysis</h5>
+            <p class="text-muted mb-0">
+                Utilizes XGBoost ensemble learning to identify complex patterns and deliver accurate
+                cardiovascular risk assessments.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon icon-danger">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h5 class="fw-bold mb-3">Risk Assessment</h5>
+            <p class="text-muted mb-0">
+                Binary classification with probability scores provides clear, actionable insights for
+                healthcare decision-making.
+            </p>
+        </div>
+    </div>
+</div>
 
-                <div class="text-center mt-4">
-                    <a href="/predict" class="btn btn-primary btn-lg shadow">
-                        <i class="fas fa-stethoscope me-2"></i>Start Prediction
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="border-radius: 20px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+            <div class="card-body p-5 text-center">
+                <h3 class="fw-bold mb-3">Ready to assess cardiovascular risk?</h3>
+                <p class="text-muted mb-4">Get started with our interactive prediction tool and receive personalized
+                    health recommendations.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/predict" class="btn btn-primary btn-lg">
+                        <i class="fas fa-stethoscope me-2"></i>Make Prediction
+                    </a>
+                    <a href="/about" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-info-circle me-2"></i>Learn More
                     </a>
                 </div>
             </div>
