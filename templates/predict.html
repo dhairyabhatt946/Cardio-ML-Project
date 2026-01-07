@@ -1,88 +1,154 @@
 {% extends 'base.html' %}
-{% block title %}Predict{% endblock %}
+{% block title %}Predict - CardioGuard AI{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card mt-4">
-            <div class="card-header text-center">Predict Cardiovascular Risk</div>
-            <div class="card-body">
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-9">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <i class="fas fa-stethoscope me-2"></i>Cardiovascular Risk Assessment
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-info border-0 mb-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Please provide accurate patient information for the most reliable risk assessment.
+                </div>
+
                 <form action="/result" method="POST">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Age (Years)</label>
-                            <input type="number" class="form-control" name="age" placeholder="e.g. 50" required>
+                    <!-- Personal Information -->
+                    <h5 class="text-dark mb-3">
+                        <i class="fas fa-user me-2"></i>Personal Information
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-calendar-alt me-2 text-muted"></i>Age (Years)
+                            </label>
+                            <input type="number" class="form-control form-control-lg" name="age" placeholder="e.g. 50"
+                                required min="1" max="100">
+                            <div class="form-text">Range: 1-100 years</div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Gender</label>
-                            <select class="form-select" name="gender">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-venus-mars me-2 text-muted"></i>Gender
+                            </label>
+                            <select class="form-select form-select-lg" name="gender">
                                 <option value="2">Male</option>
                                 <option value="1">Female</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Height (cm)</label>
-                            <input type="number" class="form-control" name="height" placeholder="165" required>
+
+                    <!-- Physical Measurements -->
+                    <h5 class="text-dark mb-3">
+                        <i class="fas fa-weight me-2"></i>Physical Measurements
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-arrows-alt-v me-2 text-success"></i>Height (cm)
+                            </label>
+                            <input type="number" class="form-control form-control-lg" name="height" placeholder="165"
+                                required min="120" max="220">
+                            <div class="form-text">Average: 164 cm</div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Weight (kg)</label>
-                            <input type="number" class="form-control" name="weight" placeholder="70" required>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-weight-hanging me-2 text-success"></i>Weight (kg)
+                            </label>
+                            <input type="number" class="form-control form-control-lg" name="weight" placeholder="70"
+                                required min="30" max="200">
+                            <div class="form-text">Average: 74 kg</div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Systolic BP (High)</label>
-                            <input type="number" class="form-control" name="ap_hi" placeholder="120" required>
+
+                    <!-- Blood Pressure -->
+                    <h5 class="text-primary mb-3" style="color: #3b82f6;">
+                        <i class="fas fa-heartbeat me-2"></i>Blood Pressure
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-arrow-up me-2 text-danger"></i>Systolic BP (mmHg)
+                            </label>
+                            <input type="number" class="form-control form-control-lg" name="ap_hi" placeholder="120"
+                                required min="90" max="200">
+                            <div class="form-text">Normal: 120 mmHg</div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Diastolic BP (Low)</label>
-                            <input type="number" class="form-control" name="ap_lo" placeholder="80" required>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-arrow-down me-2 text-warning"></i>Diastolic BP (mmHg)
+                            </label>
+                            <input type="number" class="form-control form-control-lg" name="ap_lo" placeholder="80"
+                                required min="60" max="130">
+                            <div class="form-text">Normal: 80 mmHg</div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Cholesterol</label>
-                            <select class="form-select" name="chol">
+
+                    <!-- Lab Results -->
+                    <h5 class="text-primary mb-3" style="color: #3b82f6;">
+                        <i class="fas fa-flask me-2"></i>Laboratory Results
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-vial me-2 text-info"></i>Cholesterol Level
+                            </label>
+                            <select class="form-select form-select-lg" name="chol">
                                 <option value="1">Normal</option>
                                 <option value="2">Above Normal</option>
                                 <option value="3">High</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Glucose</label>
-                            <select class="form-select" name="gluc">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-syringe me-2 text-info"></i>Glucose Level
+                            </label>
+                            <select class="form-select form-select-lg" name="gluc">
                                 <option value="1">Normal</option>
                                 <option value="2">Above Normal</option>
                                 <option value="3">High</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Smoker?</label>
-                            <select class="form-select" name="smoke">
+
+                    <!-- Lifestyle Factors -->
+                    <h5 class="text-primary mb-3" style="color: #3b82f6;">
+                        <i class="fas fa-running me-2"></i>Lifestyle Factors
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-smoking me-2 text-secondary"></i>Smoking Status
+                            </label>
+                            <select class="form-select form-select-lg" name="smoke">
+                                <option value="0">Non-Smoker</option>
+                                <option value="1">Smoker</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-wine-glass me-2 text-secondary"></i>Alcohol Consumption
+                            </label>
+                            <select class="form-select form-select-lg" name="alco">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Alcohol Intake?</label>
-                            <select class="form-select" name="alco">
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Physically Active?</label>
-                            <select class="form-select" name="active">
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-dumbbell me-2 text-secondary"></i>Physical Activity
+                            </label>
+                            <select class="form-select form-select-lg" name="active">
+                                <option value="1">Active</option>
+                                <option value="0">Sedentary</option>
                             </select>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Analyze Risk</button>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5 shadow">
+                            <i class="fas fa-chart-line me-2"></i>Analyze Risk
+                        </button>
                     </div>
                 </form>
             </div>

@@ -1,17 +1,226 @@
 {% extends 'base.html' %}
-{% block title %}Result{% endblock %}
+{% block title %}Result - CardioGuard AI{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card mt-4">
-            <div class="card-header text-center">Prediction Result</div>
-            <div class="card-body text-center">
-                <h4 class="alert alert-{{ color }}">{{ prediction_text }}</h4>
-                <p>Risk Probability: {{ prob }}%</p>
-                <p>Based on our XGBoost Model analysis of vitals, lifestyle, and calculated BMI/Pulse Pressure.</p>
-                <a href="/predict" class="btn btn-secondary">Analyze Another Patient</a>
-                <a href="/" class="btn btn-primary ms-2">Back to Home</a>
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-10">
+        <!-- Prediction Result Card -->
+        <div class="card shadow-lg mb-4">
+            <div class="card-header text-center">
+                <i class="fas fa-file-medical me-2"></i>Risk Assessment Result
             </div>
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <div class="alert alert-{{ color }} border-0 shadow-sm d-inline-block px-5 py-3">
+                        <h3 class="mb-2">
+                            {% if color == 'success' %}
+                            <i class="fas fa-check-circle me-2"></i>
+                            {% elif color == 'warning' %}
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            {% else %}
+                            <i class="fas fa-heartbeat me-2"></i>
+                            {% endif %}
+                            {{ prediction_text }}
+                        </h3>
+                        <h4 class="mb-0">Risk Probability: <strong>{{ prob }}%</strong></h4>
+                    </div>
+                    <p class="text-muted mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Based on XGBoost Model analysis of vitals, lifestyle, and calculated BMI/Pulse Pressure
+                    </p>
+                </div>
+
+                <div class="row text-center mb-3">
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <i class="fas fa-brain fa-2x text-primary mb-2"></i>
+                                <h6>Model</h6>
+                                <p class="small text-muted mb-0">XGBoost Algorithm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <i class="fas fa-bullseye fa-2x text-success mb-2"></i>
+                                <h6>Accuracy</h6>
+                                <p class="small text-muted mb-0">73.32%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <i class="fas fa-database fa-2x text-info mb-2"></i>
+                                <h6>Training Data</h6>
+                                <p class="small text-muted mb-0">70,000 records</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Recommendations Card -->
+        <div class="card shadow-lg mb-4">
+            <div class="card-header">
+                <i class="fas fa-notes-medical me-2"></i>Personalized Health Recommendations
+            </div>
+            <div class="card-body p-4">
+                {% set risk_prob = prob | float %}
+
+                {% if risk_prob < 30 %} <!-- Low Risk Recommendations -->
+                    <div class="alert alert-success border-0 mb-4">
+                        <h5><i class="fas fa-thumbs-up me-2"></i>Low Risk Category</h5>
+                        <p class="mb-0">Your cardiovascular risk appears to be low. Continue maintaining your healthy
+                            lifestyle!</p>
+                    </div>
+
+                    <h6 class="text-success mb-3"><i class="fas fa-check-circle me-2"></i>Maintenance Tips</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-running text-success me-2"></i><strong>Regular
+                                Exercise:</strong> Maintain at least 150 minutes of moderate aerobic activity per week
+                        </li>
+                        <li class="mb-2"><i class="fas fa-apple-alt text-success me-2"></i><strong>Balanced
+                                Diet:</strong> Continue eating plenty of fruits, vegetables, whole grains, and lean
+                            proteins</li>
+                        <li class="mb-2"><i class="fas fa-heartbeat text-success me-2"></i><strong>Regular
+                                Checkups:</strong> Annual health screenings to monitor blood pressure and cholesterol
+                        </li>
+                        <li class="mb-2"><i class="fas fa-weight text-success me-2"></i><strong>Healthy Weight:</strong>
+                            Maintain your current BMI within the healthy range</li>
+                        <li class="mb-2"><i class="fas fa-bed text-success me-2"></i><strong>Quality Sleep:</strong> Aim
+                            for 7-9 hours of quality sleep each night</li>
+                    </ul>
+
+                    {% elif risk_prob < 60 %} <!-- Moderate Risk Recommendations -->
+                        <div class="alert alert-warning border-0 mb-4">
+                            <h5><i class="fas fa-exclamation-triangle me-2"></i>Moderate Risk Category</h5>
+                            <p class="mb-0">Your risk level suggests some attention is needed. Following these
+                                recommendations can help reduce your risk.</p>
+                        </div>
+
+                        <h6 class="text-warning mb-3"><i class="fas fa-clipboard-list me-2"></i>Important Action Steps
+                        </h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-user-md text-warning me-2"></i><strong>Consult Your
+                                    Doctor:</strong> Schedule a comprehensive cardiovascular evaluation within the next
+                                month</li>
+                            <li class="mb-2"><i class="fas fa-heartbeat text-warning me-2"></i><strong>Monitor Blood
+                                    Pressure:</strong> Check your blood pressure regularly (at least weekly)</li>
+                            <li class="mb-2"><i class="fas fa-vial text-warning me-2"></i><strong>Lab Tests:</strong>
+                                Get lipid profile, blood glucose, and other relevant tests done</li>
+                            <li class="mb-2"><i class="fas fa-dumbbell text-warning me-2"></i><strong>Increase Physical
+                                    Activity:</strong> Aim for 30-45 minutes of exercise most days</li>
+                            <li class="mb-2"><i class="fas fa-ban text-warning me-2"></i><strong>Reduce Risk
+                                    Factors:</strong> Cut down on salt, saturated fats, and processed foods</li>
+                            <li class="mb-2"><i class="fas fa-weight-scale text-warning me-2"></i><strong>Weight
+                                    Management:</strong> Work towards achieving a healthy BMI (18.5-24.9)</li>
+                            <li class="mb-2"><i class="fas fa-smoking-ban text-warning me-2"></i><strong>Lifestyle
+                                    Changes:</strong> If you smoke or consume alcohol, consider reducing or quitting
+                            </li>
+                        </ul>
+
+                        {% else %}
+                        <!-- High Risk Recommendations -->
+                        <div class="alert alert-danger border-0 mb-4">
+                            <h5><i class="fas fa-exclamation-circle me-2"></i>High Risk Category</h5>
+                            <p class="mb-0">Your risk level requires immediate attention. Please follow these
+                                recommendations and seek medical advice promptly.</p>
+                        </div>
+
+                        <h6 class="text-danger mb-3"><i class="fas fa-hospital me-2"></i>Urgent Action Required</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-ambulance text-danger me-2"></i><strong>Immediate Medical
+                                    Consultation:</strong> Schedule an appointment with a cardiologist as soon as
+                                possible</li>
+                            <li class="mb-2"><i class="fas fa-notes-medical text-danger me-2"></i><strong>Comprehensive
+                                    Testing:</strong> Your doctor may recommend ECG, echocardiogram, stress test, or
+                                other cardiac evaluations</li>
+                            <li class="mb-2"><i class="fas fa-pills text-danger me-2"></i><strong>Medication
+                                    Review:</strong> Discuss if medications for blood pressure, cholesterol, or other
+                                conditions are needed</li>
+                            <li class="mb-2"><i class="fas fa-heartbeat text-danger me-2"></i><strong>Daily BP
+                                    Monitoring:</strong> Monitor blood pressure daily and keep a log for your doctor
+                            </li>
+                            <li class="mb-2"><i class="fas fa-apple-alt text-danger me-2"></i><strong>Strict Dietary
+                                    Changes:</strong> Follow a heart-healthy diet (low sodium, low saturated fat, high
+                                fiber)</li>
+                            <li class="mb-2"><i class="fas fa-walking text-danger me-2"></i><strong>Supervised
+                                    Exercise:</strong> Start a doctor-approved exercise program, beginning slowly</li>
+                            <li class="mb-2"><i class="fas fa-ban text-danger me-2"></i><strong>Eliminate Risk
+                                    Factors:</strong> Quit smoking and limit alcohol consumption immediately</li>
+                            <li class="mb-2"><i class="fas fa-chart-line text-danger me-2"></i><strong>Regular
+                                    Follow-ups:</strong> Frequent monitoring and check-ins with your healthcare provider
+                            </li>
+                        </ul>
+                        {% endif %}
+
+                        <!-- General Recommendations for All -->
+                        <div class="card bg-light border-0 mt-4">
+                            <div class="card-body">
+                                <h6 class="text-dark">
+                                    <i class="fas fa-lightbulb me-2"></i>General Heart Health Tips
+                                </h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="small mb-0">
+                                            <li>Limit sodium intake to less than 2,300mg per day</li>
+                                            <li>Include omega-3 rich foods (fish, walnuts, flaxseeds)</li>
+                                            <li>Manage stress through meditation or yoga</li>
+                                            <li>Stay hydrated - drink plenty of water</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="small mb-0">
+                                            <li>Avoid trans fats and limit saturated fats</li>
+                                            <li>Maintain social connections and mental health</li>
+                                            <li>Keep diabetes under control if diabetic</li>
+                                            <li>Follow prescribed medications consistently</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Warning -->
+                        <div class="alert alert-info border-0 mt-4 mb-0">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Emergency Warning Signs</h6>
+                            <p class="small mb-2">Seek immediate medical attention if you experience:</p>
+                            <p class="small mb-0">
+                                • Chest pain or discomfort • Shortness of breath • Pain in arms, back, neck, jaw, or
+                                stomach
+                                • Cold sweat • Nausea • Lightheadedness or sudden dizziness
+                            </p>
+                        </div>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="card border-warning shadow-lg mb-4">
+            <div class="card-body">
+                <h6 class="text-warning mb-2">
+                    <i class="fas fa-info-circle me-2"></i>Important Disclaimer
+                </h6>
+                <p class="small text-muted mb-0">
+                    This prediction tool is for educational and informational purposes only. It is NOT a substitute for
+                    professional medical advice,
+                    diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider
+                    with any questions you may have
+                    regarding a medical condition. Never disregard professional medical advice or delay in seeking it
+                    because of something you have read here.
+                </p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="text-center mb-4">
+            <a href="/predict" class="btn btn-secondary btn-lg shadow me-2">
+                <i class="fas fa-redo me-2"></i>Analyze Another Patient
+            </a>
+            <a href="/" class="btn btn-primary btn-lg shadow">
+                <i class="fas fa-home me-2"></i>Back to Home
+            </a>
         </div>
     </div>
 </div>
