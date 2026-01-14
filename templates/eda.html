@@ -1,188 +1,154 @@
 {% extends 'base.html' %}
-{% block title %}Data Insights{% endblock %}
+{% block title %}Data Insights - CardioPredict AI{% endblock %}
 {% block content %}
-<style>
-    .stat-card {
-        background: white;
-        border-radius: 18px;
-        padding: 1.75rem;
-        height: 100%;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-        transition: all 0.3s ease;
-        border-top: 4px solid transparent;
-    }
 
-    .stat-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    }
+<div class="card border-0 shadow-sm text-center mb-4" style="border-radius: 16px;">
+    <div class="card-body p-4">
+        <h1 class="display-6 fw-bold mb-2">
+            <i class="fas fa-chart-bar me-2" style="color: #0066FF;"></i>
+            Data Insights & EDA
+        </h1>
+        <p class="text-body-secondary mb-0">Analysis of 70,000 patient records</p>
+    </div>
+</div>
 
-    .stat-card.primary {
-        border-top-color: #667eea;
-    }
+<div class="alert alert-info" role="alert">
+    <h6 class="fw-bold mb-2"><i class="fas fa-database me-2"></i>Dataset Overview</h6>
+    <p class="mb-0">
+        <strong>70,000 records</strong> from cardio_train.csv with demographics, vitals, and lifestyle factors.
+        Balanced: 50% CVD / 50% healthy.
+    </p>
+</div>
 
-    .stat-card.success {
-        border-top-color: #4ade80;
-    }
+<h4 class="fw-bold mb-4">
+    <i class="fas fa-lightbulb me-2" style="color: #0066FF;"></i>
+    Key Statistics
+</h4>
 
-    .stat-card.danger {
-        border-top-color: #f87171;
-    }
-
-    .stat-card.info {
-        border-top-color: #38bdf8;
-    }
-
-    .stat-card.warning {
-        border-top-color: #fbbf24;
-    }
-
-    .viz-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-    }
-
-    .viz-card:hover {
-        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
-    }
-
-    .viz-card img {
-        border-radius: 12px;
-        transition: transform 0.3s ease;
-    }
-
-    .viz-card:hover img {
-        transform: scale(1.02);
-    }
-</style>
-
-<div class="row justify-content-center">
-    <div class="col-md-10">
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <i class="fas fa-chart-bar me-2"></i>Data Insights & Exploratory Data Analysis
-            </div>
+<div class="row g-4 mb-5">
+    <div class="col-md-6">
+        <div class="card border-top border-primary border-4 shadow-sm h-100" style="border-radius: 12px;">
             <div class="card-body p-4">
-                <div class="alert alert-info mb-4">
-                    <h6 class="mb-2"><i class="fas fa-database me-2"></i>Dataset Overview</h6>
-                    <p class="mb-0"><strong>70,000 records</strong> from cardio_train.csv featuring demographics, vital
-                        signs, and lifestyle factors. Target variable is balanced: 50% with cardiovascular disease, 50%
-                        without.</p>
-                </div>
-
-                <h4 class="mb-4 fw-bold">
-                    <i class="fas fa-lightbulb me-2" style="color: #667eea;"></i>Key Statistical Insights
-                </h4>
-
-                <div class="row g-4 mb-5">
-                    <div class="col-md-6">
-                        <div class="stat-card primary">
-                            <h6 class="fw-bold mb-3">
-                                <i class="fas fa-calendar-alt me-2" style="color: #667eea;"></i>Age Distribution
-                            </h6>
-                            <ul class="mb-0">
-                                <li>Mean: ~53 years</li>
-                                <li>Range: 30-65 years</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="stat-card primary">
-                            <h6 class="fw-bold mb-3">
-                                <i class="fas fa-venus-mars me-2" style="color: #667eea;"></i>Gender Distribution
-                            </h6>
-                            <ul class="mb-0">
-                                <li>Men: 65%</li>
-                                <li>Women: 35%</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="stat-card success">
-                            <h6 class="fw-bold mb-3">
-                                <i class="fas fa-ruler-vertical me-2" style="color: #4ade80;"></i>Physical Measurements
-                            </h6>
-                            <ul class="mb-0">
-                                <li>Mean Height: 164 cm</li>
-                                <li>Mean Weight: 74 kg</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="stat-card danger">
-                            <h6 class="fw-bold mb-3">
-                                <i class="fas fa-heartbeat me-2" style="color: #f87171;"></i>Blood Pressure
-                            </h6>
-                            <ul class="mb-0">
-                                <li>Systolic Mean: 129 mmHg</li>
-                                <li>Diastolic Mean: 97 mmHg</li>
-                                <li>Note: Contains outliers</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="stat-card info">
-                            <h6 class="fw-bold mb-3">
-                                <i class="fas fa-vial me-2" style="color: #38bdf8;"></i>Lab Results
-                            </h6>
-                            <ul class="mb-0">
-                                <li>Cholesterol Mean: 1.37</li>
-                                <li>Glucose Mean: 1.23</li>
-                                <li>Mostly normal levels</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="stat-card warning">
-                            <h6 class="fw-bold mb-3">
-                                <i class="fas fa-running me-2" style="color: #fbbf24;"></i>Lifestyle Factors
-                            </h6>
-                            <ul class="mb-0">
-                                <li>Smokers: 8.8%</li>
-                                <li>Alcohol Consumers: 5.4%</li>
-                                <li>Physically Active: 80.4%</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <h4 class="mb-4 fw-bold">
-                    <i class="fas fa-chart-pie me-2" style="color: #667eea;"></i>Data Visualizations
-                </h4>
-                <div class="row g-4 mb-4">
-                    <div class="col-md-6">
-                        <div class="viz-card">
-                            <img src="/static/eda_boxplot.png" alt="Blood Pressure Distribution" class="img-fluid mb-3">
-                            <h6 class="fw-bold text-center mb-2">Blood Pressure Distribution</h6>
-                            <p class="text-muted small text-center mb-0">
-                                Boxplot showing ap_hi (~120-130 mmHg) and ap_lo (~80 mmHg) with high outliers
-                                indicating extreme values
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="viz-card">
-                            <img src="/static/eda_heatmap.png" alt="Correlation Heatmap" class="img-fluid mb-3">
-                            <h6 class="fw-bold text-center mb-2">Feature Correlation Heatmap</h6>
-                            <p class="text-muted small text-center mb-0">
-                                Strong correlation between pulse_pressure & ap_hi (0.84). Age shows moderate
-                                correlation with cardio risk (0.24)
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="alert alert-warning mb-0">
-                    <h6><i class="fas fa-exclamation-triangle me-2"></i>Data Quality Notes</h6>
-                    <p class="mb-0">The dataset contains some outliers in blood pressure measurements. These were
-                        identified during EDA and handled appropriately during preprocessing to ensure model
-                        reliability.</p>
-                </div>
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-calendar-alt me-2" style="color: #0066FF;"></i>
+                    Age Distribution
+                </h6>
+                <ul class="mb-0 text-body">
+                    <li>Mean: ~53 years</li>
+                    <li>Range: 30-65 years</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-top border-primary border-4 shadow-sm h-100" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-venus-mars me-2" style="color: #0066FF;"></i>
+                    Gender Distribution
+                </h6>
+                <ul class="mb-0 text-body">
+                    <li>Men: 65%</li>
+                    <li>Women: 35%</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-top border-success border-4 shadow-sm h-100" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-ruler-vertical me-2 text-success"></i>
+                    Physical Measurements
+                </h6>
+                <ul class="mb-0 text-body">
+                    <li>Mean Height: 164 cm</li>
+                    <li>Mean Weight: 74 kg</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-top border-danger border-4 shadow-sm h-100" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-heartbeat me-2 text-danger"></i>
+                    Blood Pressure
+                </h6>
+                <ul class="mb-0 text-body">
+                    <li>Systolic: 129 mmHg</li>
+                    <li>Diastolic: 97 mmHg</li>
+                    <li>Note: Contains outliers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-top border-info border-4 shadow-sm h-100" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-vial me-2 text-info"></i>
+                    Lab Results
+                </h6>
+                <ul class="mb-0 text-body">
+                    <li>Cholesterol: 1.37</li>
+                    <li>Glucose: 1.23</li>
+                    <li>Mostly normal</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-top border-warning border-4 shadow-sm h-100" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-running me-2 text-warning"></i>
+                    Lifestyle Factors
+                </h6>
+                <ul class="mb-0 text-body">
+                    <li>Smokers: 8.8%</li>
+                    <li>Alcohol: 5.4%</li>
+                    <li>Active: 80.4%</li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
+
+<h4 class="fw-bold mb-4">
+    <i class="fas fa-chart-pie me-2" style="color: #0066FF;"></i>
+    Visualizations
+</h4>
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <img src="/static/eda_boxplot.png" alt="Blood Pressure" class="img-fluid rounded shadow-sm mb-3">
+                <h6 class="fw-bold text-center mb-2">Blood Pressure Distribution</h6>
+                <p class="small text-body-secondary text-center mb-0">
+                    Boxplot showing systolic (~120-130) and diastolic (~80 mmHg) with outliers
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <img src="/static/eda_heatmap.png" alt="Correlation" class="img-fluid rounded shadow-sm mb-3">
+                <h6 class="fw-bold text-center mb-2">Feature Correlation</h6>
+                <p class="small text-body-secondary text-center mb-0">
+                    Strong correlation: pulse_pressure & ap_hi (0.84). Age & cardio (0.24)
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-warning" role="alert">
+    <h6 class="fw-bold"><i class="fas fa-exclamation-triangle me-2"></i>Data Quality</h6>
+    <p class="mb-0">
+        Dataset contains BP outliers, handled during preprocessing for model reliability.
+    </p>
+</div>
+
 {% endblock %}

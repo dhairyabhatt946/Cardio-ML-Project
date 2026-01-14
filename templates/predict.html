@@ -1,318 +1,175 @@
 {% extends 'base.html' %}
-{% block title %}Predict - CardioGuard AI{% endblock %}
+{% block title %}New Assessment - CardioPredict AI{% endblock %}
 {% block content %}
-<style>
-    .form-section {
-        background: white;
-        border-radius: 20px;
-        padding: 2.5rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-        border-left: 5px solid transparent;
-        transition: all 0.3s ease;
-    }
 
-    .form-section:hover {
-        border-left-color: #667eea;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-    }
+<div class="mb-4">
+    <h1 class="display-6 fw-bold">
+        <i class="fas fa-stethoscope me-2" style="color: #0066FF;"></i>
+        Health Data Assessment
+    </h1>
+    <p class="text-body-secondary">Detailed clinical profile for predictive cardiovascular risk modeling.</p>
+</div>
 
-    .section-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px solid #f1f5f9;
-    }
+<div class="alert alert-primary border-0 mb-4" role="alert">
+    <i class="fas fa-info-circle me-2"></i>
+    <strong>Please provide accurate patient information</strong> for the most reliable risk assessment.
+    All fields are required.
+</div>
 
-    .section-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.5rem;
-        margin-right: 1rem;
-    }
-
-    .section-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #2d3748;
-        margin: 0;
-    }
-
-    .form-group-enhanced {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-control-enhanced,
-    .form-select-enhanced {
-        border: 2px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 0.9rem 1.2rem;
-        font-size: 1rem;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        background: #f8fafc;
-    }
-
-    .form-control-enhanced:focus,
-    .form-select-enhanced:focus {
-        background: white;
-        border-color: #667eea;
-        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .form-label-enhanced {
-        font-weight: 600;
-        color: #2d3748;
-        margin-bottom: 0.6rem;
-        font-size: 0.95rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .form-label-enhanced i {
-        margin-right: 0.5rem;
-        color: #667eea;
-    }
-
-    .form-text-enhanced {
-        font-size: 0.85rem;
-        color: #718096;
-        margin-top: 0.4rem;
-        font-style: italic;
-    }
-
-    .submit-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 20px;
-        padding: 3rem;
-        text-align: center;
-        color: white;
-        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
-    }
-
-    .submit-button {
-        background: white;
-        color: #667eea;
-        border: none;
-        padding: 1.2rem 3.5rem;
-        font-size: 1.1rem;
-        font-weight: 700;
-        border-radius: 15px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
-    }
-
-    .submit-button:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-        color: #667eea;
-    }
-
-    .info-banner {
-        background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
-        border: none;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-bottom: 2.5rem;
-        border-left: 5px solid #0ea5e9;
-    }
-
-    .info-banner i {
-        color: #0c4a6e;
-    }
-</style>
-
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <i class="fas fa-stethoscope me-2"></i>Cardiovascular Risk Assessment
-            </div>
-            <div class="card-body p-4">
-                <div class="info-banner">
-                    <i class="fas fa-info-circle me-2"></i>
-                    <strong>Please provide accurate patient information</strong> for the most reliable risk assessment.
-                    All fields are required.
+<form action="/result" method="POST">
+    <!-- Demographics -->
+    <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                    <i class="fas fa-user fs-5" style="color: #0066FF;"></i>
                 </div>
-
-                <form action="/result" method="POST">
-                    <!-- Personal Information -->
-                    <div class="form-section">
-                        <div class="section-header">
-                            <div class="section-icon">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <h5 class="section-title">Personal Information</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-calendar-alt"></i>Age (Years)
-                                </label>
-                                <input type="number" class="form-control form-control-enhanced" name="age"
-                                    placeholder="e.g. 50" required min="1" max="100">
-                                <div class="form-text-enhanced">Range: 1-100 years</div>
-                            </div>
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-venus-mars"></i>Gender
-                                </label>
-                                <select class="form-select form-select-enhanced" name="gender">
-                                    <option value="2">Male</option>
-                                    <option value="1">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Physical Measurements -->
-                    <div class="form-section">
-                        <div class="section-header">
-                            <div class="section-icon">
-                                <i class="fas fa-weight"></i>
-                            </div>
-                            <h5 class="section-title">Physical Measurements</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-arrows-alt-v"></i>Height (cm)
-                                </label>
-                                <input type="number" class="form-control form-control-enhanced" name="height"
-                                    placeholder="165" required min="120" max="220">
-                                <div class="form-text-enhanced">Average: 164 cm</div>
-                            </div>
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-weight-hanging"></i>Weight (kg)
-                                </label>
-                                <input type="number" class="form-control form-control-enhanced" name="weight"
-                                    placeholder="70" required min="30" max="200">
-                                <div class="form-text-enhanced">Average: 74 kg</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Blood Pressure -->
-                    <div class="form-section">
-                        <div class="section-header">
-                            <div class="section-icon">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <h5 class="section-title">Blood Pressure</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-arrow-up"></i>Systolic BP (mmHg)
-                                </label>
-                                <input type="number" class="form-control form-control-enhanced" name="ap_hi"
-                                    placeholder="120" required min="90" max="200">
-                                <div class="form-text-enhanced">Normal: 120 mmHg</div>
-                            </div>
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-arrow-down"></i>Diastolic BP (mmHg)
-                                </label>
-                                <input type="number" class="form-control form-control-enhanced" name="ap_lo"
-                                    placeholder="80" required min="60" max="130">
-                                <div class="form-text-enhanced">Normal: 80 mmHg</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Laboratory Results -->
-                    <div class="form-section">
-                        <div class="section-header">
-                            <div class="section-icon">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <h5 class="section-title">Laboratory Results</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-vial"></i>Cholesterol Level
-                                </label>
-                                <select class="form-select form-select-enhanced" name="chol">
-                                    <option value="1">Normal</option>
-                                    <option value="2">Above Normal</option>
-                                    <option value="3">High</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-syringe"></i>Glucose Level
-                                </label>
-                                <select class="form-select form-select-enhanced" name="gluc">
-                                    <option value="1">Normal</option>
-                                    <option value="2">Above Normal</option>
-                                    <option value="3">High</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifestyle Factors -->
-                    <div class="form-section">
-                        <div class="section-header">
-                            <div class="section-icon">
-                                <i class="fas fa-running"></i>
-                            </div>
-                            <h5 class="section-title">Lifestyle Factors</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-smoking"></i>Smoking Status
-                                </label>
-                                <select class="form-select form-select-enhanced" name="smoke">
-                                    <option value="0">Non-Smoker</option>
-                                    <option value="1">Smoker</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-wine-glass"></i>Alcohol Consumption
-                                </label>
-                                <select class="form-select form-select-enhanced" name="alco">
-                                    <option value="0">No</option>
-                                    <option value="1">Yes</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group-enhanced">
-                                <label class="form-label-enhanced">
-                                    <i class="fas fa-dumbbell"></i>Physical Activity
-                                </label>
-                                <select class="form-select form-select-enhanced" name="active">
-                                    <option value="1">Active</option>
-                                    <option value="0">Sedentary</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Submit Section -->
-                    <div class="submit-section">
-                        <h4 class="mb-3 fw-bold">Ready to Analyze?</h4>
-                        <p class="mb-4" style="opacity: 0.9;">Click below to get your cardiovascular risk assessment</p>
-                        <button type="submit" class="submit-button">
-                            <i class="fas fa-chart-line me-2"></i>Analyze Risk
-                        </button>
-                    </div>
-                </form>
+                <h5 class="mb-0 fw-bold">Demographics</h5>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Patient Age</label>
+                    <input type="number" class="form-control" name="age" placeholder="e.g., 45" required min="1"
+                        max="100">
+                    <div class="form-text">Range: 1-100 years</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Biological Sex</label>
+                    <select class="form-select" name="gender">
+                        <option value="2">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Clinical Metrics -->
+    <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                    <i class="fas fa-ruler-combined fs-5" style="color: #0066FF;"></i>
+                </div>
+                <h5 class="mb-0 fw-bold">Clinical Metrics</h5>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Height (cm)</label>
+                    <input type="number" class="form-control" name="height" placeholder="165" required min="120"
+                        max="220">
+                    <div class="form-text">Average: 164 cm</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Weight (kg)</label>
+                    <input type="number" class="form-control" name="weight" placeholder="70" required min="30"
+                        max="200">
+                    <div class="form-text">Average: 74 kg</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blood Pressure -->
+    <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                    <i class="fas fa-heartbeat fs-5" style="color: #0066FF;"></i>
+                </div>
+                <h5 class="mb-0 fw-bold">Blood Pressure</h5>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Systolic BP (mmHg)</label>
+                    <input type="number" class="form-control" name="ap_hi" placeholder="120" required min="90"
+                        max="200">
+                    <div class="form-text">Normal: ~120 mmHg</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Diastolic BP (mmHg)</label>
+                    <input type="number" class="form-control" name="ap_lo" placeholder="80" required min="60" max="130">
+                    <div class="form-text">Normal: ~80 mmHg</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lipid Profile -->
+    <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                    <i class="fas fa-vial fs-5" style="color: #0066FF;"></i>
+                </div>
+                <h5 class="mb-0 fw-bold">Lipid Profile</h5>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Cholesterol Level</label>
+                    <select class="form-select" name="chol">
+                        <option value="1">Normal</option>
+                        <option value="2">Above Normal</option>
+                        <option value="3">High</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Glucose Level</label>
+                    <select class="form-select" name="gluc">
+                        <option value="1">Normal</option>
+                        <option value="2">Above Normal</option>
+                        <option value="3">High</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lifestyle -->
+    <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                    <i class="fas fa-running fs-5" style="color: #0066FF;"></i>
+                </div>
+                <h5 class="mb-0 fw-bold">Lifestyle & History</h5>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Smoking Status</label>
+                    <select class="form-select" name="smoke">
+                        <option value="0">Non-Smoker</option>
+                        <option value="1">Smoker</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Alcohol Intake</label>
+                    <select class="form-select" name="alco">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Physical Activity</label>
+                    <select class="form-select" name="active">
+                        <option value="1">Active (≥150 min/week)</option>
+                        <option value="0">Sedentary</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="card border-0 shadow-sm text-center" style="border-radius: 12px;">
+        <div class="card-body p-5">
+            <h4 class="fw-bold mb-3">Ready to Analyze?</h4>
+            <p class="text-body-secondary mb-4">Click below to generate ML analysis</p>
+            <button type="submit" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-chart-line me-2"></i>Generate Analysis
+            </button>
+        </div>
+    </div>
+</form>
+
 {% endblock %}

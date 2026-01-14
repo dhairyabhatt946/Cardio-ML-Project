@@ -1,162 +1,137 @@
 {% extends 'base.html' %}
-{% block title %}About Model{% endblock %}
+{% block title %}About - CardioPredict AI{% endblock %}
 {% block content %}
-<style>
-    .info-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-        transition: all 0.3s ease;
-    }
 
-    .info-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-    }
+<div class="card border-0 shadow-sm text-center mb-4" style="border-radius: 16px;">
+    <div class="card-body p-4">
+        <h1 class="display-6 fw-bold mb-2">
+            <i class="fas fa-brain me-2" style="color: #0066FF;"></i>
+            About the ML Model
+        </h1>
+        <p class="text-body-secondary mb-0">XGBoost-powered risk prediction</p>
+    </div>
+</div>
 
-    .param-badge {
-        display: inline-block;
-        padding: 0.75rem 1.5rem;
-        border-radius: 12px;
-        font-weight: 600;
-        font-size: 0.95rem;
-        margin: 0.3rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+<div class="alert alert-primary" role="alert">
+    <div class="text-center mb-3">
+        <span class="badge text-bg-primary fs-5 px-4 py-3">
+            <i class="fas fa-robot me-2"></i>
+            XGBoost (Extreme Gradient Boosting)
+        </span>
+    </div>
+    <p class="mb-0 text-center">
+        Powerful ensemble learning algorithm for high-performance classification. Combines multiple weak learners into a
+        strong predictive model.
+    </p>
+</div>
 
-    .feature-list-item {
-        padding: 0.75rem 1rem;
-        margin-bottom: 0.5rem;
-        background: #f8fafc;
-        border-radius: 10px;
-        border-left: 4px solid #667eea;
-        transition: all 0.3s ease;
-    }
+<h4 class="fw-bold mb-4">
+    <i class="fas fa-cog me-2" style="color: #0066FF;"></i>
+    Training Details
+</h4>
 
-    .feature-list-item:hover {
-        background: #f1f5f9;
-        transform: translateX(10px);
-    }
+<div class="card border-primary border-2 shadow-sm mb-4" style="border-radius: 12px;">
+    <div class="card-body p-4">
+        <h6 class="fw-bold mb-3">
+            <i class="fas fa-sliders-h me-2 text-success"></i>Hyperparameters (GridSearchCV Optimized)
+        </h6>
+        <div class="text-center">
+            <span class="badge text-bg-primary me-2 mb-2 px-3 py-2">Learning Rate: 0.1</span>
+            <span class="badge text-bg-success me-2 mb-2 px-3 py-2">Max Depth: 5</span>
+            <span class="badge text-bg-warning me-2 mb-2 px-3 py-2">Estimators: 100</span>
+        </div>
+    </div>
+</div>
 
-    .gradient-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-weight: 800;
-    }
-</style>
-
-<div class="row justify-content-center">
-    <div class="col-md-10">
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <i class="fas fa-brain me-2"></i>About the Machine Learning Model
+<h5 class="fw-bold mb-3">
+    <i class="fas fa-list me-2" style="color: #0066FF;"></i>Clinical Features (13 Total)
+</h5>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="list-group list-group-flush">
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Gender</strong></span>
             </div>
-            <div class="card-body p-4">
-                <div class="alert alert-info mb-4">
-                    <h5 class="mb-2"><i class="fas fa-robot me-2"></i>XGBoost (Extreme Gradient Boosting)</h5>
-                    <p class="mb-0">A powerful ensemble learning algorithm known for high performance in classification
-                        tasks. XGBoost uses gradient boosting to combine multiple weak learners into a strong predictive
-                        model.</p>
-                </div>
-
-                <h4 class="gradient-header mb-4">
-                    <i class="fas fa-cog me-2"></i>Training Details
-                </h4>
-
-                <div class="info-card">
-                    <h6 class="mb-3 fw-bold"><i class="fas fa-sliders-h me-2 text-success"></i>Hyperparameters
-                        (Optimized
-                        via GridSearchCV)</h6>
-                    <div class="text-center">
-                        <span class="param-badge"
-                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">Learning
-                            Rate: 0.1</span>
-                        <span class="param-badge"
-                            style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">Max
-                            Depth: 5</span>
-                        <span class="param-badge"
-                            style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white;">N
-                            Estimators: 100</span>
-                    </div>
-                </div>
-
-                <h5 class="mb-3 fw-bold"><i class="fas fa-list me-2"></i>Features (13 Total)</h5>
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Gender</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Height (cm)</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Weight (kg)</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Systolic BP</strong> (ap_hi)
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Diastolic BP</strong> (ap_lo)
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Cholesterol</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Glucose</strong>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Smoking</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Alcohol</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Physical Activity</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Age</strong> (years)
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>Pulse Pressure</strong>
-                        </div>
-                        <div class="feature-list-item">
-                            <i class="fas fa-check text-success me-2"></i><strong>BMI</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-card" style="border: 2px solid #4ade80;">
-                    <h6 class="text-success mb-3 fw-bold"><i class="fas fa-wrench me-2"></i>Feature Engineering</h6>
-                    <ul class="mb-0">
-                        <li><strong>Age Conversion:</strong> Converted from days to years for better
-                            interpretability</li>
-                        <li><strong>BMI Calculation:</strong> weight / (height/100)²</li>
-                        <li><strong>Pulse Pressure:</strong> ap_hi - ap_lo</li>
-                        <li><strong>Standardization:</strong> Numeric features scaled using StandardScaler</li>
-                    </ul>
-                </div>
-
-                <div class="info-card">
-                    <h6 class="mb-3 fw-bold"><i class="fas fa-database me-2 text-info"></i>Training Data</h6>
-                    <p class="mb-2"><strong>Source:</strong> cardio_train.csv (cleaned dataset)</p>
-                    <p class="mb-2"><strong>Split:</strong> X_train and y_train</p>
-                    <p class="mb-0"><strong>Balance:</strong> 50% with cardiovascular disease, 50% without (balanced
-                        dataset)</p>
-                </div>
-
-                <div class="alert alert-success mb-0">
-                    <h6><i class="fas fa-info-circle me-2"></i>Model Output</h6>
-                    <p class="mb-0">Binary classification: <strong>0 = Low Risk</strong> | <strong>1 = High
-                            Risk</strong></p>
-                </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Height</strong>
+                    (cm)</span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Weight</strong>
+                    (kg)</span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Systolic
+                        BP</strong></span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Diastolic
+                        BP</strong></span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span
+                    class="text-body"><strong>Cholesterol</strong></span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Glucose</strong></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="list-group list-group-flush">
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Smoking</strong></span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Alcohol</strong></span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Physical
+                        Activity</strong></span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Age</strong>
+                    (years)</span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>Pulse
+                        Pressure</strong></span>
+            </div>
+            <div class="list-group-item bg-body-tertiary border-start border-primary border-4">
+                <i class="fas fa-check text-success me-2"></i><span class="text-body"><strong>BMI</strong></span>
             </div>
         </div>
     </div>
 </div>
+
+<div class="card border-success border-2 shadow-sm mb-4" style="border-radius: 12px;">
+    <div class="card-body p-4">
+        <h6 class="text-success fw-bold mb-3">
+            <i class="fas fa-wrench me-2"></i>Feature Engineering
+        </h6>
+        <ul class="mb-0 text-body">
+            <li><strong>Age:</strong> Converted from days to years</li>
+            <li><strong>BMI:</strong> weight / (height/100)²</li>
+            <li><strong>Pulse Pressure:</strong> ap_hi - ap_lo</li>
+            <li><strong>Scaling:</strong> StandardScaler normalization</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4" style="border-radius: 12px;">
+    <div class="card-body p-4">
+        <h6 class="fw-bold mb-3">
+            <i class="fas fa-database me-2 text-info"></i>Training Data
+        </h6>
+        <p class="mb-2 text-body"><strong>Source:</strong> cardio_train.csv (cleaned)</p>
+        <p class="mb-2 text-body"><strong>Split:</strong> Train/test split</p>
+        <p class="mb-0 text-body"><strong>Balance:</strong> 50% CVD / 50% healthy</p>
+    </div>
+</div>
+
+<div class="alert alert-success" role="alert">
+    <h6 class="fw-bold"><i class="fas fa-info-circle me-2"></i>Model Output</h6>
+    <p class="mb-0">Binary classification: <strong>0 = Low Risk</strong> | <strong>1 = High Risk</strong></p>
+</div>
+
 {% endblock %}
